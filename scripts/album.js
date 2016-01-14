@@ -26,6 +26,21 @@ var albumMarconi = {
          { name: 'Wrong phone number', length: '2:15'}
      ]
  };
+var dannyNoonan = {
+     name: 'Caddyshack',
+     artist: 'Bill Murray',
+     label: 'Orion Pictures',
+     year: '1980',
+     albumArtUrl: 'http://ia.media-imdb.com/images/M/MV5BNzk2OTE2NjYxNF5BMl5BanBnXkFtZTYwMjYwNDQ5._V1._CR8,0,331,448_SY317_CR10,0,214,317_AL_.jpg',
+     songs: [
+         { name: 'Chevy Chase', length: '1:55' },
+         { name: 'Rodney Dangerfield', length: '5:55' },
+         { name: 'Ted Knight', length: '3:55'},
+         { name: "Michael O'Keefe", length: '3:55' },
+         { name: 'Bill Murray', length: '2:55'}
+     ]
+ };
+
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -37,13 +52,16 @@ var albumMarconi = {
  
      return template;
  };
+
+var albumTitle = document.getElementsByClassName('album-view-title')[0];
+var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+
 var setCurrentAlbum = function(album) {
      // #1
-     var albumTitle = document.getElementsByClassName('album-view-title')[0];
-     var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-     var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-     var albumImage = document.getElementsByClassName('album-cover-art')[0];
-     var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+
  
      // #2
      albumTitle.firstChild.nodeValue = album.name;
@@ -59,7 +77,18 @@ var setCurrentAlbum = function(album) {
          albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].name, album.songs[i].length);
      }
  };
- 
+
  window.onload = function() {
      setCurrentAlbum(albumPicasso);
+     var albums = [albumPicasso,albumMarconi,dannyNoonan];
+     var d = 1;
+     albumImage.addEventListener("click", function(event){
+        setCurrentAlbum(albums[d]);
+        d++;
+        if (d === albums.length){
+            d = 0;
+        
+        }
+     
+     });
  };
